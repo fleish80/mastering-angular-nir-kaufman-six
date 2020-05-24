@@ -1,7 +1,7 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AbstractCentralMessage } from '../models/abstract-central-message';
 import { Message } from '../models/central-message.types';
-import { CentralMessageService } from '../services/central-message.service';
 
 @Component({
   selector: 'app-central-message',
@@ -12,7 +12,7 @@ export class CentralMessageComponent implements OnInit {
 
   messages$: Observable<Message[]>
 
-  constructor(private centralMessageService: CentralMessageService) { }
+  constructor(private centralMessageService: AbstractCentralMessage) { }
 
   ngOnInit(): void {
     this.messages$ = this.centralMessageService.messages$;

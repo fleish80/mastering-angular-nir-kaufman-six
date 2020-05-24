@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
+import { RouterModule, Routes } from '@angular/router';
+import { MESSAGE_LOGGERS } from './central-message/tokens/message-loggers';
+import { MessageConsoleLogger } from './models/message-console-logger';
 
 const routes: Routes = [];
 
@@ -8,4 +9,4 @@ const routes: Routes = [];
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
