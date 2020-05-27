@@ -7,3 +7,7 @@ export interface Message {
     description: string;
 }
 
+export interface CentralMessageConfig {
+    enableLoggers: boolean;
+}
+

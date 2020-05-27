@@ -8,22 +8,22 @@ import { CentralMessageModule } from './central-message/central-message.module';
 import { CentralMessageComponent } from './central-message/pages/central-message.component';
 import { MessageConsoleLogger } from './models/message-console-logger';
 import { ServerConsoleLogger } from './models/server-console-logger';
-
+import { AbstractCentralMessage } from './central-message/models/abstract-central-message';
+import { CustomMessageService } from './central-message/services/custom-message.service';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    CentralMessageModule
+    CentralMessageModule,
   ],
   providers: [
     { provide: MESSAGE_LOGGERS, useClass: MessageConsoleLogger, multi: true },
-    { provide: MESSAGE_LOGGERS, useClass: ServerConsoleLogger, multi: true }
+    { provide: MESSAGE_LOGGERS, useClass: ServerConsoleLogger, multi: true },
+    // { provide: AbstractCentralMessage, useClass: CustomMessageService },
   ],
-  bootstrap: [AppComponent, CentralMessageComponent]
+  bootstrap: [AppComponent, CentralMessageComponent],
 })
-export class AppModule { }
+export class AppModule {}

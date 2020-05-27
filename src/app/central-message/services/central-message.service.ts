@@ -2,15 +2,17 @@ import { MessageLogger } from './../models/message-logger';
 import { MESSAGE_LOGGERS } from './../tokens/message-loggers';
 import { Injectable, Inject, Optional } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Message } from '../models/central-message.types';
+import { Message, CentralMessageConfig } from '../models/central-message.types';
 import { AbstractCentralMessage } from '../models/abstract-central-message';
+import { CentralMessageConfiguratinService } from './central-message-configuratin.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CentralMessageService extends AbstractCentralMessage {
 
-  constructor(@Inject(MESSAGE_LOGGERS) @Optional() private loggers: MessageLogger[]) {
+  constructor(@Inject(MESSAGE_LOGGERS) @Optional() private loggers: MessageLogger[],
+  private centralMessageConfiguratinService: CentralMessageConfiguratinService) {
     super();
    }
 
@@ -18,12 +20,13 @@ export class CentralMessageService extends AbstractCentralMessage {
      this._messageQueue.push(message);
      this._messages.next([...this._messageQueue]);// messages array is reacreated with new instnace, we don't want to return original instance of array
 
-     if (this.loggers?.length > 0) {
-       this.loggers.forEach((logger: MessageLogger) => {
-         logger.logMessage(message)
-       })
-     }
-
+    if (this.centralMessageConfiguratinService.configuration.enableLoggers) {
+      if (this.loggers?.length > 0) {
+        this.loggers.forEach((logger: MessageLogger) => {
+          logger.logMessage(message)
+        })
+      }
+    }
    }
 
    public removeMessage(message: Message): void {
